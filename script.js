@@ -1,22 +1,22 @@
 // Game variables
 let player;
 let gameContainer;
-let playerPositon = {};
-const moveSpeed = 5;
+let playerPosition = {};
+const moveSpeed = 7;
 
 // Track which keys are currently pressed
 const keysPressed = {
   ArrowUp: false,
   ArrowDown: false,
   ArrowLeft: false,
-  ArrowRigth: false,
+  ArrowRight: false,
   //   spacebar: false,
 };
 // Initialize the game
 function initializeGame() {
   player = document.getElementById("chef");
   gameContainer = document.querySelector(".game-container");
-  playerPositon = {
+  playerPosition = {
     x: gameContainer.clientWidth / 2 - 20,
     y: gameContainer.clientHeight / 2 - 20,
   };
@@ -36,7 +36,7 @@ function setUpEventListeners() {
   document.addEventListener("keyup", (event) => {
     if (event.code in keysPressed) {
       event.preventDefault();
-      keysPressed[event.code] = true;
+      keysPressed[event.code] = false;
     }
   });
 }
@@ -45,23 +45,40 @@ function updateMovement() {
   let deltaX = 0;
   let deltaY = 0;
 
-  if (keysPressed.arrowLeft) deltaX -= moveSpeed;
-  if (keysPressed.arrowDown) deltaY -= moveSpeed;
-  if (keysPressed.arrowRigth) deltaX += moveSpeed;
-  if (keysPressed.arrowUp) deltaY += moveSpeed;
+  if (keysPressed.ArrowLeft) deltaX -= moveSpeed;
+  if (keysPressed.ArrowDown) deltaY += moveSpeed;
+  if (keysPressed.ArrowRight) deltaX += moveSpeed;
+  if (keysPressed.ArrowUp) deltaY -= moveSpeed;
 
-  playerPositon.x += deltaX;
-  playerPositon.y += deltaY;
+  playerPosition.x += deltaX;
+  playerPosition.y += deltaY;
 
   constrainPlayerPosition();
   updatePlayerPosition();
 }
 // Keep chef within the game container boundaries
-function constrainPlayerPosition() {}
+function constrainPlayerPosition() {
+  const chefWidth = 40;
+  const chefHeight = 40;
+  const containerWidth = gameContainer.clientWidth;
+  const containerHeight = gameContainer.clientHeight;
+
+  if (playerPosition.x < 0) {
+    playerPosition.x = 0;
+  } else if (playerPosition.x > containerWidth - chefWidth) {
+    playerPosition.x = containerWidth - chefWidth;
+  }
+
+  if (playerPosition.y < 0) {
+    playerPosition.y = 0;
+  } else if (playerPosition.y > containerHeight - chefHeight) {
+    playerPosition.y = containerHeight - chefHeight;
+  }
+}
 // Update the visual position of the chef
 function updatePlayerPosition() {
-  player.style.left = playerPositon.x + "px";
-  player.style.top = playerPositon.y + "px";
+  player.style.left = playerPosition.x + "px";
+  player.style.top = playerPosition.y + "px";
   player.style.transform = "none";
 }
 // Start the game loop
