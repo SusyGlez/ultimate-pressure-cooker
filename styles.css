@@ -23,9 +23,11 @@ body {
 
 .chef-square {
   width: 40px;
-  height: 40px;
-  background-color: chartreuse;
-  border-radius: 5px;
+  height: 75px;
+  object-fit: contain;
+  /* background-image: url("images/chef.png"); */
+  /* background-size: cover; */
+  /* background-position: center; */
   position: absolute;
   top: 50%;
   left: 50%;

@@ -2,7 +2,7 @@
 let player;
 let gameContainer;
 let playerPosition = {};
-const moveSpeed = 7;
+const moveSpeed = 10;
 
 // Track which keys are currently pressed
 const keysPressed = {
@@ -18,7 +18,7 @@ function initializeGame() {
   gameContainer = document.querySelector(".game-container");
   playerPosition = {
     x: gameContainer.clientWidth / 2 - 20,
-    y: gameContainer.clientHeight / 2 - 20,
+    y: gameContainer.clientHeight / 2 - 37.5,
   };
 
   updatePlayerPosition();
@@ -59,7 +59,7 @@ function updateMovement() {
 // Keep chef within the game container boundaries
 function constrainPlayerPosition() {
   const chefWidth = 40;
-  const chefHeight = 40;
+  const chefHeight = 75;
   const containerWidth = gameContainer.clientWidth;
   const containerHeight = gameContainer.clientHeight;
 
